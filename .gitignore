@@ -1,3 +1,11 @@
 .env
 node_modules
  
+
+#  Git Initialization process
+#  Install Git
+#  git Init
+#  git add .   git stage
+#  git commit -m "folder structure"
+#  git remote add origin   copy it from github
+#  git push -u origin master

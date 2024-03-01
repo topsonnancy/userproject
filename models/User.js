@@ -22,10 +22,6 @@ const userSchema = new Schema({
         required: true
     },
 
-
-
-
-
 })
 
 const userModel = mongoose.model("User", userSchema)
