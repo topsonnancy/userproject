@@ -16,5 +16,4 @@ const handleLogin = async (req,res) => {
      
      }
      
-
 }

@@ -4,26 +4,27 @@ const Employee = require("../models/Employee")
 const getAllEmployee = async (req, res) => {
     try {
         const employee = await Employee.find(
-            res.status(200).json(employees)
+            res.status(200).json(employee)
         )
     } catch (error) {
-        re.status(500).json({ "Error": `${error.message}`})
+        res.status(500).json({ "Error": `${error.message}`})
     }
 
 }
 
 // create
 const createEmployee = async (req, res) => {
-    const{firstname, department} = req.body
-    if (!firstname || !department) return res.status(400).json({"Message": "Fields cannot be empty"})
+    const{firstName, department} = req.body
+    if (!firstName || !department) return res.status(400).json({"Message": "Fields cannot be empty"})
     try {
-       const existEmployee = await Employee.findOne({ firstname}).exec()
-       if(existEmployee) return res.status(401).json({"Message": "Firstname already exist"})
+
+       const existEmployee = await Employee.findOne({firstName}).exec()
+       if(existEmployee) return res.status(401).json({"Message": "firstName already exist"})
        const createEmployee = await Employee.create({
-        "firstname": firstname,
+        "firstName": firstName,
         "department": department
     })
-    res.status(200).json({ "Message": `Employee ${createEmployee.firstname} was created successfully` })
+    res.status(200).json({ "Message": `Employee ${createEmployee.firstName} was created successfully` })
 
     } catch (error) {
         res.status(500).json({ "Error": `${error.message}`})
@@ -33,20 +34,21 @@ const createEmployee = async (req, res) => {
 
 // update
 const updateEmployee = async (req, res) => {
-    const { firstname, department, id} = req.body
-    if (!firstname || !department) return res.status(400).json({"Message": "Fileds cannot be empty"})
+
+    const { firstName, department, id} = req.body
+    if (!firstName || !department) return res.status(400).json({"Message": "Fields cannot be empty"})
     try {
         const foundEmployee = await Employee.findOne({_id: id}).exec()
         if(!foundEmployee) return res.status(400).json({"Message": "No user with this id found"})
 
-        if (firstname) foundEmployee.firstname = firstname
+        if (firstName) foundEmployee.firstName = firstName
         if (department) foundEmployee.department = department
         
         const result = await foundEmployee.save()
-        res.status(200).json({ "Message": `Employee ${result.firstname} updated successfully`})
+        res.status(200).json({ "Message": `Employee ${result.firstName} updated successfully`})
 
     } catch (error) {
-       res.status(500).json("Error":`${error.message}`)
+    res.status(500).json({"Error":`${error.message}`})
     }
 
 }
@@ -61,7 +63,7 @@ const deleteEmployee = async (req, res) => {
        res.status(200).json({"Message": "Employee delete successfully"})
 
     } catch (error) {
-        res.status(500).json("Error":`${error.message}`)
+        res.status(500).json({"Error":`${error.message}`})
     }
 
 }
